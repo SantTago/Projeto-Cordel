@@ -13,7 +13,57 @@
         </h1>
         <p>Por <a href="https://www.recantodasletras.com.br/poesias/3186743" target="_blank">Milton Duarte</a></p>
        
+
     </header> 
+    <script>
+        // Função para buscar o número atual, iniciando em 2 se não houver nenhum valor armazenado
+        function obterNumeroAtual() {
+            var numeroArmazenado = localStorage.getItem('numeroAtual');
+            return numeroArmazenado ? parseInt(numeroArmazenado) : 2;
+        }
+    
+        // Função para atualizar o número na página e no armazenamento local
+        function atualizarNumero(numero) {
+            document.getElementById('numero').innerText = numero;
+            localStorage.setItem('numeroAtual', numero);
+        }
+    
+        // Função para atualizar o número a cada 25 segundos e adicionar 1 a cada vez
+        function atualizarNumeroAutomaticamente() {
+            setInterval(function() {
+                var numeroAtual = obterNumeroAtual();
+                numeroAtual++;
+                if (numeroAtual > 24) {
+                    numeroAtual = 2;
+                }
+                atualizarNumero(numeroAtual);
+            }, 25000);
+        }
+    
+        // Função para adicionar 1 ao número após 30 segundos
+        function adicionarUmApos30Segundos() {
+            setTimeout(function() {
+                var numeroAtual = obterNumeroAtual();
+                numeroAtual++;
+                if (numeroAtual > 24) {
+                    numeroAtual = 2;
+                }
+                atualizarNumero(numeroAtual);
+            }, 30000);
+        }
+    </script>
+
+    <h1>Número Variável</h1>
+    <p>O número atual é: <span id="numero">Carregando...</span></p>
+    <script>
+        // Chamar a função para atualizar o número quando a página carrega
+        document.addEventListener('DOMContentLoaded', function() {
+            var numeroAtual = obterNumeroAtual();
+            atualizarNumero(numeroAtual);
+            atualizarNumeroAutomaticamente();
+            adicionarUmApos30Segundos();
+        });
+    </script>
 
     <section class="normal">
         <p >
